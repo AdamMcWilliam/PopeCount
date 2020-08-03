@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <link href="index.css" type="text/css" rel="stylesheet" />
+    </head>
+
+<body>
+
+<div id="popeCount"></div>
+
+</body>
+
+<script>
+
+ url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=List_of_popes';
+
+fetch(url)
+  .then(function(response) {
+    return response.json();
+  })
+  .then(function(response){
+    html_code = response["parse"]["text"]["*"];
+    parser = new DOMParser();
+    html = parser.parseFromString(html_code, "text/html");
+    var tables = html.querySelectorAll(".wikitable");
+    //console.log(tables[20]);
+    var Rows = tables[20].rows;
+    //console.log(Rows);
+    var lastRowCount = Rows.length -1;
+    //console.log(lastRowCount);
+    var lastRowElement = Rows[lastRowCount]; 
+    var Cells = lastRowElement.cells
+    var firstCell = Cells[0];
+    var numberOfPopes = firstCell.innerText;
+    //console.log(numberOfPopes);
+
+    //get pope div
+    var popeDiv = document.getElementById("popeCount");
+    //set Value
+    popeDiv.innerHTML = numberOfPopes;
+  })
+</script>
+
+</html>

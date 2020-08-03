@@ -1,0 +1,16 @@
+@font-face {
+    font-family: Phosphorus;
+    src: url(fonts/Phosphorus.ttf.woff);
+  }
+
+body{
+    background-color: #FF0000;
+}
+
+#popeCount{
+    margin: auto;
+    font-family: Phosphorus;
+    font-size:40vw;
+    text-align: center;
+    color: #FFE100;
+}
