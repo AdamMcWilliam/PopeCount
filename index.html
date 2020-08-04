@@ -7,6 +7,8 @@
 
 <div id="popeCount"></div>
 
+<audio id="pope_audio" src="audio/Pope-Talk.mp3" loop="loop"></audio>
+
 </body>
 
 <script>
@@ -38,6 +40,13 @@ fetch(url)
     //set Value
     popeDiv.innerHTML = numberOfPopes;
   })
+</script>
+
+<script>
+    //Run Audio
+    window.onload = function() {
+    document.getElementById("pope_audio").play();
+}
 </script>
 
 </html>
