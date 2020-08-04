@@ -7,10 +7,11 @@ body{
     background-color: #FF0000;
 }
 
-#popeCount{
+#odometer{
     margin: auto;
     font-family: Phosphorus;
     font-size:40vw;
-    text-align: center;
+    text-align: center !important;
     color: #FFE100;
+    display:block !important;
 }

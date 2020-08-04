@@ -1,15 +1,19 @@
 <html>
     <head>
+        <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-minimal.css" />
         <link href="index.css" type="text/css" rel="stylesheet" />
     </head>
 
 <body>
 
-<div id="popeCount"></div>
+<div id="odometer" class="odometer"></div>
 
 <audio id="pope_audio" src="audio/Pope-Talk.mp3" loop="loop"></audio>
 
 </body>
+
+<script src="http://github.hubspot.com/odometer/odometer.js"></script>
+
 
 <script>
 
@@ -36,9 +40,16 @@ fetch(url)
     //console.log(numberOfPopes);
 
     //get pope div
-    var popeDiv = document.getElementById("popeCount");
+    var odometer = document.getElementById("odometer");
     //set Value
-    popeDiv.innerHTML = numberOfPopes;
+    //popeDiv.innerHTML = numberOfPopes;
+
+
+    setTimeout(function(){
+    odometer.innerHTML = numberOfPopes;
+}, 1000);
+
+
   })
 </script>
 
