@@ -8,6 +8,8 @@
 
 <div id="odometer" class="odometer"></div>
 
+<div id="truePopeCount"></div>
+
 <audio id="pope_audio" src="audio/Pope-Talk.mp3" loop="loop"></audio>
 
 </body>
@@ -48,6 +50,13 @@ fetch(url)
     setTimeout(function(){
     odometer.innerHTML = numberOfPopes;
 }, 1000);
+
+setTimeout(function(){
+  //show true number of popes
+  var truePopeCount = parseInt(numberOfPopes)+1;
+    var truePopeDiv = document.getElementById("truePopeCount");
+    truePopeDiv.innerHTML = "Or "+ truePopeCount + " if you count <a href ='https://en.wikipedia.org/wiki/Pope-elect_Stephen'>Pope Stephen II</a>";
+}, 3400);
 
 
   })

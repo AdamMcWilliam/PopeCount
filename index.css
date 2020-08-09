@@ -15,3 +15,21 @@ body{
     color: #FFE100;
     display:block !important;
 }
+
+#truePopeCount{
+    margin: auto;
+    font-family: Phosphorus;
+    font-size:4vw;
+    text-align: center !important;
+    color: #FFE100;
+    display:block !important;
+}
+
+
+#truePopeCount a{
+    color:white;
+}
+
+#truePopeCount a:visited{
+    color:white;
+}
