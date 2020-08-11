@@ -1,6 +1,6 @@
 # PopeCount
 
-<a href='www.popecount.com'>popecount.com</a>
+<a href='http://www.popecount.com'>popecount.com</a>
 
 Inpired by https://www.patreon.com/beginbot Podcast
 
