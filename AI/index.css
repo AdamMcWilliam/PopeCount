@@ -1,0 +1,73 @@
+@font-face {
+    font-family: Phosphorus;
+    src: url(fonts/Phosphorus.ttf.woff);
+  }
+
+body{
+    background-color: #FF0000;
+    color: #FFE100;
+}
+
+#odometer{
+    margin: auto;
+    font-family: Phosphorus;
+    font-size:40vw;
+    text-align: center !important;
+    display:block !important;
+}
+
+#truePopeCount{
+    margin: auto;
+    font-family: Phosphorus;
+    font-size:4vw;
+    text-align: center !important;
+    display:block !important;
+}
+
+
+ a{
+    color:white;
+}
+
+a:visited{
+    color:white;
+}
+
+#podcast{
+    position: absolute;
+    font-size:1.5vw;
+    top: 1px;
+    z-index: 1000;
+}
+
+#podcast audio{
+    width: 192px;
+    height: 28px;
+}
+
+#playButton{
+    background: none;
+    background-image: url(audio/popePlay.png);
+    border: 0;
+    height: 37px;
+    width: 37px;
+    background-repeat: no-repeat;    
+}
+
+#pauseButton{
+    background: none;
+    background-image: url(audio/popePause.png);
+    border: 0;
+    height: 37px;
+    width: 37px;
+    background-repeat: no-repeat;    
+}
+
+#muteButton{
+    background: none;
+    background-image: url(audio/popeMute.png);
+    border: 0;
+    height: 37px;
+    width: 37px;
+    background-repeat: no-repeat;    
+}
