@@ -61,6 +61,15 @@
             var lastRowElement = Rows[lastRowCount];
             var Cells = lastRowElement.cells
             var firstCell = Cells[0];
+
+            //if first cell == — then get 1 row up
+            if (firstCell.innerText == "—\n") {
+                var lastRowCount = lastRowCount - 1;
+                var lastRowElement = Rows[lastRowCount];
+                var Cells = lastRowElement.cells
+                var firstCell = Cells[0];
+            }
+
             var numberOfPopes = firstCell.innerText;
             //console.log(numberOfPopes);
 
