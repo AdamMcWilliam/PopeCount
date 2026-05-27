@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/which-pope",
+      "destination": "/games/which-pope.html"
+    }
+  ]
+}

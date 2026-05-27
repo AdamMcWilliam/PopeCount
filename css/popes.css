@@ -1,0 +1,352 @@
+/* Pope directory — extends index.css + games nav patterns */
+
+.popes-page {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 3.25rem 0 2rem;
+}
+
+.popes-header {
+  text-align: center;
+  margin-bottom: 1.25rem;
+}
+
+.popes-header .quiz-title {
+  margin-bottom: 0.35rem;
+}
+
+.popes-search-wrap {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.popes-search {
+  flex: 1;
+  min-width: 12rem;
+  min-height: 48px;
+  padding: 0.65rem 1rem;
+  font-family: var(--font-roman);
+  font-size: 1rem;
+  color: var(--papal-cream);
+  background: rgba(0, 0, 0, 0.35);
+  border: 2px solid var(--vatican-gold-dim);
+  border-radius: 2px;
+}
+
+.popes-search::placeholder {
+  color: rgba(255, 248, 231, 0.55);
+}
+
+.popes-search:focus {
+  outline: none;
+  border-color: var(--vatican-gold);
+  box-shadow: 0 0 0 2px var(--glow);
+}
+
+.search-clear-btn {
+  min-height: 48px;
+  padding: 0 1rem;
+  font-family: var(--font-roman);
+  font-size: 0.85rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--vatican-gold);
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid var(--vatican-gold-dim);
+  border-radius: 2px;
+}
+
+.sort-order-btn {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.sort-order-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.random-pope-btn {
+  text-transform: none;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.list-status {
+  margin: 0 0 0.75rem;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--vatican-gold-dim);
+  text-align: center;
+}
+
+.list-loading {
+  text-align: center;
+  padding: 2rem;
+  color: var(--papal-cream);
+  font-style: italic;
+}
+
+.list-error {
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--vatican-gold);
+  background: rgba(0, 0, 0, 0.35);
+  color: var(--papal-cream);
+}
+
+.list-empty {
+  text-align: center;
+  padding: 2rem 1rem;
+  color: var(--papal-cream);
+}
+
+.pope-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  gap: 1rem;
+}
+
+/* Single result (e.g. random pope): full-width hero */
+.popes-page--solo {
+  max-width: none;
+  width: 100%;
+  padding-left: clamp(0.65rem, 3vw, 2rem);
+  padding-right: clamp(0.65rem, 3vw, 2rem);
+  min-height: min(100vh, 100dvh);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+}
+
+.popes-page--solo .pope-grid {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+}
+
+.popes-page--solo .wiki-attribution {
+  margin-top: auto;
+}
+
+.pope-grid--solo {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.pope-grid--solo .pope-card {
+  width: 100%;
+  max-width: 72rem;
+  margin: 0 auto;
+  min-height: min(82vh, 82dvh);
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.pope-grid--solo .pope-card__media {
+  flex: 0 0 min(42%, 22rem);
+  max-width: min(42vw, 26rem);
+  aspect-ratio: auto;
+  min-height: min(50vh, 28rem);
+  align-self: stretch;
+}
+
+.pope-grid--solo .pope-card__body {
+  padding: clamp(1rem, 3vw, 2rem);
+  justify-content: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.pope-grid--solo .pope-card__name {
+  font-size: clamp(1.4rem, 4.2vw, 2.35rem);
+  line-height: 1.15;
+}
+
+.pope-grid--solo .pope-card__reign {
+  font-size: clamp(0.85rem, 2vw, 1rem);
+}
+
+.pope-grid--solo .pope-card__birth {
+  font-size: clamp(0.82rem, 1.8vw, 0.95rem);
+}
+
+.pope-grid--solo .pope-card__bio {
+  font-size: clamp(0.88rem, 1.9vw, 1.05rem);
+  line-height: 1.55;
+  max-width: 40rem;
+}
+
+.pope-grid--solo .pope-card__source {
+  font-size: 0.78rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 720px) {
+  .pope-grid--solo .pope-card {
+    flex-direction: column;
+    min-height: auto;
+  }
+
+  .pope-grid--solo .pope-card__media {
+    flex: none;
+    max-width: none;
+    width: 100%;
+    min-height: min(52vh, 22rem);
+    aspect-ratio: 4 / 5;
+  }
+}
+
+.pope-card {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid var(--vatican-gold-dim);
+  background: rgba(0, 0, 0, 0.32);
+  box-shadow: 0 4px 16px var(--shadow);
+  overflow: hidden;
+  min-height: 100%;
+}
+
+.pope-card__media {
+  aspect-ratio: 4 / 5;
+  background: linear-gradient(165deg, #3d0000 0%, #1a0000 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.pope-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.pope-card__placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  width: 100%;
+  height: 100%;
+  color: var(--vatican-gold-dim);
+  font-size: 2.5rem;
+}
+
+.pope-card__placeholder-num {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  color: var(--vatican-gold);
+}
+
+.pope-card__body {
+  padding: 0.85rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.pope-card__number {
+  margin: 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--vatican-gold-dim);
+}
+
+.pope-card__name {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  line-height: 1.25;
+  color: var(--vatican-gold);
+}
+
+.pope-card__reign {
+  margin: 0;
+  font-size: 0.8rem;
+  line-height: 1.4;
+  color: var(--papal-cream);
+  opacity: 0.9;
+}
+
+.pope-card__birth {
+  margin: 0;
+  font-size: 0.78rem;
+  font-style: italic;
+  color: var(--papal-cream);
+  opacity: 0.85;
+}
+
+.pope-card__bio {
+  margin: 0.25rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--papal-cream);
+  flex: 1;
+}
+
+.pope-card__source {
+  margin: 0.5rem 0 0;
+  font-size: 0.72rem;
+  color: var(--vatican-gold-dim);
+}
+
+.pope-card__source a {
+  color: var(--vatican-gold);
+}
+
+.wiki-attribution {
+  margin-top: 2rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--vatican-gold-dim);
+  background: rgba(0, 0, 0, 0.28);
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: var(--papal-cream);
+}
+
+.wiki-attribution strong {
+  color: var(--vatican-gold);
+}
+
+.wiki-attribution .source-meta {
+  margin: 0.5rem 0 0;
+  font-size: 0.8rem;
+  opacity: 0.9;
+}
+
+.link-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: var(--vatican-gold);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.site-nav a.is-active {
+  border-color: var(--vatican-gold);
+  color: var(--papal-cream);
+}
+
+@media (max-width: 480px) {
+  .popes-page {
+    padding-top: 4.5rem;
+  }
+}

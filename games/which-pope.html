@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Which Pope Are You? A silly BuzzFeed-style quiz from PopeCount." />
+  <meta name="theme-color" content="#8b0000" />
+  <title>Which Pope Are You? — PopeCount</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-27BGCVXGVB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-27BGCVXGVB");
+  </script>
+
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="stylesheet" href="../css/games.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site">
+    <a href="../index.html">← Count</a>
+    <a href="../popes/">Popes</a>
+    <a href="index.html">Games</a>
+  </nav>
+
+  <div class="quiz-wrap">
+  <section id="screen-intro" class="quiz-card">
+    <p class="quiz-eyebrow">PopeCount Presents</p>
+    <h1 class="quiz-title">Which Pope Are You?</h1>
+    <p class="quiz-subtitle">Answer 12 extremely scientific questions. Receive a pontiff. No refunds.</p>
+    <p class="quiz-disclaimer">Parody quiz. Not church doctrine. Not BuzzFeed. Definitely not infallible.</p>
+    <button type="button" class="quiz-cta" id="start-btn">Begin the conclave</button>
+  </section>
+
+  <section id="screen-quiz" class="quiz-card" hidden>
+    <div class="quiz-progress" aria-hidden="true">
+      <span class="quiz-progress-label" id="progress-label">Question 1 of 12</span>
+      <div class="quiz-progress-track">
+        <div class="quiz-progress-fill" id="progress-fill"></div>
+      </div>
+    </div>
+    <h2 id="question-text" class="quiz-question"></h2>
+    <div id="options" class="quiz-options"></div>
+  </section>
+
+  <section id="screen-loading" class="quiz-card" hidden>
+    <p class="quiz-loading-text">Counting ballots…<br />smoke is white-ish…</p>
+  </section>
+
+  <section id="screen-result" class="quiz-card" hidden>
+    <div class="result-crown" aria-hidden="true">♛</div>
+    <figure id="result-image-wrap" class="result-image-wrap" hidden>
+      <img id="result-image" class="result-image" alt="" width="220" height="280" />
+    </figure>
+    <p class="quiz-eyebrow">You are</p>
+    <h2 class="result-name" id="result-name"></h2>
+    <p class="result-percent" id="result-percent"></p>
+    <p class="result-tagline" id="result-tagline"></p>
+    <p class="result-blurb" id="result-blurb"></p>
+    <div class="quiz-actions">
+      <a class="quiz-cta" id="directory-link" href="../popes/">Look up your pope</a>
+      <button type="button" class="quiz-cta" id="share-btn">Share your pope</button>
+      <button type="button" class="quiz-cta quiz-cta--secondary" id="retake-btn">Retake quiz</button>
+    </div>
+    <p class="quiz-disclaimer" style="margin-top: 0.75rem; margin-bottom: 0">
+      Portrait from Wikipedia (main article image).
+    </p>
+  </section>
+  </div>
+
+  <script type="module" src="../js/games/which-pope.js"></script>
+</body>
+</html>

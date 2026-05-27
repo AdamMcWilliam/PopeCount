@@ -1,0 +1,328 @@
+/* Quiz & games — extends ../index.css */
+
+.site-nav {
+  position: fixed;
+  top: calc(0.35rem + var(--safe-top));
+  right: calc(0.5rem + var(--safe-right));
+  z-index: 1001;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.site-nav a {
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid var(--vatican-gold-dim);
+  background: rgba(20, 0, 0, 0.75);
+  text-decoration: none;
+  color: var(--vatican-gold);
+}
+
+.site-nav a:hover {
+  background: rgba(0, 0, 0, 0.5);
+  color: var(--papal-cream);
+}
+
+.quiz-wrap {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 32rem;
+  margin: 0 auto;
+  padding: 3.5rem 0 1rem;
+}
+
+.quiz-card {
+  width: 100%;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  border: 3px double var(--vatican-gold);
+  background: rgba(0, 0, 0, 0.28);
+  box-shadow: 0 0.5rem 2rem var(--shadow);
+}
+
+.quiz-eyebrow {
+  margin: 0 0 0.5rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--vatican-gold-dim);
+  text-align: center;
+}
+
+.quiz-title {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.35rem, 5vw, 1.85rem);
+  text-align: center;
+  line-height: 1.2;
+  color: var(--vatican-gold);
+}
+
+.quiz-subtitle,
+.quiz-disclaimer {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--papal-cream);
+}
+
+.quiz-disclaimer {
+  font-size: 0.8rem;
+  opacity: 0.85;
+  font-style: italic;
+}
+
+.quiz-cta {
+  display: block;
+  width: 100%;
+  margin-top: 0.5rem;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-roman);
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  color: var(--vatican-crimson);
+  background: linear-gradient(180deg, var(--vatican-gold) 0%, var(--vatican-gold-dim) 100%);
+  border: 2px solid var(--papal-cream);
+  border-radius: 2px;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+}
+
+.quiz-cta:hover {
+  filter: brightness(1.05);
+}
+
+.quiz-cta:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+}
+
+.quiz-progress {
+  margin-bottom: 1rem;
+}
+
+.quiz-progress-label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--vatican-gold-dim);
+}
+
+.quiz-progress-track {
+  height: 6px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--vatican-gold-dim);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.quiz-progress-fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--vatican-gold-dim), var(--vatican-gold));
+  transition: width 0.25s ease;
+}
+
+#question-text {
+  margin: 0 0 1rem;
+  font-size: clamp(1.05rem, 4vw, 1.25rem);
+  line-height: 1.45;
+  text-align: center;
+  color: var(--papal-cream);
+}
+
+.quiz-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.quiz-option {
+  width: 100%;
+  min-height: 48px;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-family: var(--font-roman);
+  font-size: 0.95rem;
+  line-height: 1.35;
+  cursor: pointer;
+  color: var(--papal-cream);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--vatican-gold-dim);
+  border-radius: 2px;
+  transition: background 0.15s ease, border-color 0.15s ease, transform 0.1s ease;
+}
+
+.quiz-option:hover {
+  background: rgba(255, 215, 0, 0.12);
+  border-color: var(--vatican-gold);
+}
+
+.quiz-option:active {
+  transform: scale(0.99);
+}
+
+.quiz-loading-text {
+  text-align: center;
+  font-size: 1.1rem;
+  animation: quiz-pulse 0.8s ease-in-out infinite alternate;
+}
+
+@keyframes quiz-pulse {
+  from { opacity: 0.65; }
+  to { opacity: 1; }
+}
+
+.result-crown {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.result-image-wrap {
+  margin: 0 auto 0.75rem;
+  max-width: 12rem;
+  border: 2px solid var(--vatican-gold-dim);
+  box-shadow: 0 4px 16px var(--shadow);
+  overflow: hidden;
+}
+
+.result-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.quiz-actions .quiz-cta[href] {
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  line-height: 1.2;
+  padding-top: 0.85rem;
+  padding-bottom: 0.85rem;
+}
+
+.result-name {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 6vw, 2rem);
+  text-align: center;
+  color: var(--vatican-gold);
+}
+
+.result-percent {
+  margin: 0 0 0.75rem;
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--vatican-gold-dim);
+  letter-spacing: 0.05em;
+}
+
+.result-tagline {
+  margin: 0 0 1rem;
+  text-align: center;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--papal-cream);
+}
+
+.result-blurb {
+  margin: 0 0 1.25rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--papal-cream);
+}
+
+.quiz-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.quiz-actions .quiz-cta--secondary {
+  background: transparent;
+  color: var(--vatican-gold);
+  border-color: var(--vatican-gold-dim);
+  box-shadow: none;
+}
+
+.games-lobby {
+  display: grid;
+  gap: 1rem;
+  width: 100%;
+}
+
+.game-teaser {
+  display: block;
+  padding: 1rem 1.15rem;
+  text-decoration: none;
+  color: inherit;
+  border: 2px solid var(--vatican-gold-dim);
+  background: rgba(0, 0, 0, 0.25);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+
+.game-teaser:hover {
+  border-color: var(--vatican-gold);
+  background: rgba(255, 215, 0, 0.08);
+}
+
+.game-teaser h2 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-display);
+  font-size: 1.15rem;
+  color: var(--vatican-gold);
+}
+
+.game-teaser p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--papal-cream);
+  line-height: 1.45;
+}
+
+.game-teaser .badge {
+  display: inline-block;
+  margin-top: 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--vatican-gold-dim);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+@media (max-width: 480px) {
+  .quiz-wrap {
+    padding-top: 4rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quiz-progress-fill {
+    transition: none;
+  }
+
+  .quiz-loading-text {
+    animation: none;
+  }
+}

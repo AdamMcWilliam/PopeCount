@@ -1,104 +1,99 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-27BGCVXGVB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Live count of popes from Wikipedia — Vatican red and gold, odometer and all." />
+  <meta name="theme-color" content="#8b0000" />
+  <title>PopeCount</title>
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&display=swap"
+    rel="stylesheet"
+  />
 
-        gtag('config', 'G-27BGCVXGVB');
-    </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-27BGCVXGVB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-27BGCVXGVB");
+  </script>
 
-<script data-ad-client="ca-pub-3394003259837436" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script
+    data-ad-client="ca-pub-3394003259837436"
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  ></script>
 
-    <link rel="stylesheet" href="https://github.hubspot.com/odometer/themes/odometer-theme-minimal.css" />
-    <link href="index.css" type="text/css" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-minimal.css"
+  />
+  <link rel="stylesheet" href="index.css" />
+  <link rel="stylesheet" href="css/games.css" />
 </head>
-
 <body>
+  <a class="skip-link" href="#odometer">Skip to pope count</a>
 
-    <div id="podcast">
-        <audio id="pope_audio" src="audio/Pope-Talk.mp3" loop="loop"></audio>
-        <div>
-            <button id="playButton" onclick="document.getElementById('pope_audio').play()"></button>
-            <button id="pauseButton" onclick="document.getElementById('pope_audio').pause()"></button>
-            <button id="muteButton" onclick="document.getElementById('pope_audio').muted=!document.getElementById('pope_audio').muted"></button>
-        </div>
-        <a href="https://feeds.simplecast.com/LJItsxM6">The Philistines Podcast</a>
+  <header id="podcast" class="podcast-bar" aria-label="Podcast player">
+    <audio id="pope_audio" src="audio/Pope-Talk.mp3" loop preload="metadata"></audio>
+    <div class="podcast-controls" role="group" aria-label="Playback controls">
+      <button
+        type="button"
+        id="playButton"
+        class="podcast-btn"
+        aria-label="Play podcast"
+      ></button>
+      <button
+        type="button"
+        id="pauseButton"
+        class="podcast-btn"
+        aria-label="Pause podcast"
+      ></button>
+      <button
+        type="button"
+        id="muteButton"
+        class="podcast-btn"
+        aria-label="Mute podcast"
+        aria-pressed="false"
+      ></button>
     </div>
+    <p id="audioHint" class="audio-hint" hidden>
+      Tap play for papal ambiance — your browser blocked autoplay.
+    </p>
+    <a
+      class="podcast-link"
+      href="https://feeds.simplecast.com/LJItsxM6"
+      rel="noopener noreferrer"
+    >The Philistines Podcast</a>
+  </header>
 
-    <div id="odometer" class="odometer"></div>
+  <main class="stage">
+    
+    <nav class="site-nav site-nav--home" aria-label="Site">
+      <a href="popes/">Popes</a>
+      <a href="games/">Games</a>
+    </nav>
+    <p class="site-title">Pope Count</p>
+    <div class="papal-frame">
+      <div class="papal-crown" aria-hidden="true" title="Papal insignia">♛</div>
+      <div
+        id="odometer"
+        class="odometer"
+        aria-live="polite"
+        aria-busy="true"
+        aria-label="Loading pope count"
+      ></div>
+    </div>
+    <p id="truePopeCount" class="footnote" aria-live="polite"></p>
+  </main>
 
-    <div id="truePopeCount"></div>
-
+  <script src="https://cdn.jsdelivr.net/npm/odometer@0.4.8/odometer.min.js"></script>
+  <script src="js/podcast.js" defer></script>
+  <script src="js/pope-count.js" defer></script>
 </body>
-
-<script src="https://github.hubspot.com/odometer/odometer.js"></script>
-
-
-<script>
-    url = 'https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=List_of_popes';
-
-    fetch(url)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(response) {
-            html_code = response["parse"]["text"]["*"];
-            parser = new DOMParser();
-            html = parser.parseFromString(html_code, "text/html");
-            var tables = html.querySelectorAll(".wikitable");
-            //console.log(tables[20]);
-            var Rows = tables[20].rows;
-            //console.log(Rows);
-            var lastRowCount = Rows.length - 1;
-            //console.log(lastRowCount);
-            var lastRowElement = Rows[lastRowCount];
-            var Cells = lastRowElement.cells
-            var firstCell = Cells[0];
-
-            //if first cell == — then get 1 row up
-            if (firstCell.innerText == "—\n") {
-                var lastRowCount = lastRowCount - 1;
-                var lastRowElement = Rows[lastRowCount];
-                var Cells = lastRowElement.cells
-                var firstCell = Cells[0];
-            }
-
-            var numberOfPopes = firstCell.innerText;
-            //console.log(numberOfPopes);
-
-            //get pope div
-            var odometer = document.getElementById("odometer");
-            //set Value
-            //popeDiv.innerHTML = numberOfPopes;
-
-
-            setTimeout(function() {
-                odometer.innerHTML = numberOfPopes;
-            }, 1000);
-
-            setTimeout(function() {
-                //show true number of popes
-                var truePopeCount = parseInt(numberOfPopes) + 1;
-                var truePopeDiv = document.getElementById("truePopeCount");
-                truePopeDiv.innerHTML = "Or " + truePopeCount + " if you count <a href ='https://en.wikipedia.org/wiki/Pope-elect_Stephen'>Pope Stephen II</a>";
-            }, 3400);
-
-
-        })
-</script>
-
-<script>
-    //Run Audio
-    window.onload = function() {
-        document.getElementById("pope_audio").play();
-    }
-</script>
-
 </html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Searchable list of all popes with summaries and portraits — sourced from Wikipedia." />
+  <meta name="theme-color" content="#8b0000" />
+  <title>All Popes — PopeCount</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-27BGCVXGVB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-27BGCVXGVB");
+  </script>
+
+  <link rel="stylesheet" href="../index.css" />
+  <link rel="stylesheet" href="../css/games.css" />
+  <link rel="stylesheet" href="../css/popes.css" />
+</head>
+<body>
+  <nav class="site-nav" aria-label="Site">
+    <a href="../index.html">← Count</a>
+    <a href="../games/">Games</a>
+    <a href="index.html" class="is-active" aria-current="page">Popes</a>
+  </nav>
+
+  <div class="popes-page">
+    <header class="popes-header">
+      <p class="quiz-eyebrow">Papal directory</p>
+      <h1 class="quiz-title">All the Popes</h1>
+      <p class="quiz-subtitle" style="margin-bottom: 0">
+        Search 2,000 years of pontiffs. Bios and images from Wikipedia.
+      </p>
+    </header>
+
+    <div class="popes-search-wrap">
+      <label for="search-input" class="visually-hidden">Search popes</label>
+      <input
+        type="search"
+        id="search-input"
+        class="popes-search"
+        placeholder="Search by name, number, era, notes…"
+        autocomplete="off"
+        enterkeyhint="search"
+      />
+      <button type="button" class="search-clear-btn" id="search-clear">Clear</button>
+      <button
+        type="button"
+        class="search-clear-btn sort-order-btn"
+        id="sort-order-btn"
+        aria-label="Sort by pope number, oldest first"
+      >↑ #1 first</button>
+      <button
+        type="button"
+        class="search-clear-btn random-pope-btn"
+        id="random-pope-btn"
+        disabled
+        aria-disabled="true"
+        title="Pick a random pontiff"
+      >Random pope</button>
+    </div>
+
+    <p class="list-status" id="list-status" aria-live="polite">Loading from Wikipedia…</p>
+
+    <p id="list-loading" class="list-loading">Fetching the chronology…</p>
+
+    <p id="list-error" class="list-error" hidden>
+      Could not reach Wikipedia. Check your connection and try refresh below.
+    </p>
+
+    <p id="list-empty" class="list-empty" hidden>No popes match that search.</p>
+
+    <div id="pope-grid" class="pope-grid" role="list"></div>
+
+    <footer class="wiki-attribution" id="wiki-source">
+      <p>
+        <strong>Source:</strong>
+        <a href="https://en.wikipedia.org/wiki/List_of_popes" rel="noopener noreferrer">Wikipedia — List of popes</a>
+        and linked pope articles. Main portraits are loaded via Wikipedia&rsquo;s page image API. Text and images are used under the
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/" rel="noopener noreferrer">Creative Commons Attribution-ShareAlike 4.0</a> license.
+      </p>
+    </footer>
+  </div>
+
+  <style>
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+
+  <script type="module" src="../js/popes-list.js"></script>
+</body>
+</html>

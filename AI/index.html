@@ -1,54 +1,57 @@
-<html>
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-27BGCVXGVB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="PopeCount AI demo — odometer at zero, so far....." />
+  <meta name="theme-color" content="#8b0000" />
+  <title>PopeCount — AI</title>
 
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600&family=Cinzel+Decorative:wght@700&display=swap"
+    rel="stylesheet"
+  />
 
-        gtag('config', 'G-27BGCVXGVB');
-    </script>
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-27BGCVXGVB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag("js", new Date());
+    gtag("config", "G-27BGCVXGVB");
+  </script>
 
-<script data-ad-client="ca-pub-3394003259837436" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+  <script
+    data-ad-client="ca-pub-3394003259837436"
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+  ></script>
 
-    <link rel="stylesheet" href="https://github.hubspot.com/odometer/themes/odometer-theme-minimal.css" />
-    <link href="index.css" type="text/css" rel="stylesheet" />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/odometer@0.4.8/themes/odometer-theme-minimal.css"
+    crossorigin="anonymous"
+  />
+  <link rel="stylesheet" href="../index.css" />
 </head>
-
 <body>
+  <main class="stage stage--centered">
+    <p class="site-title">Pope Count</p>
+    <div class="papal-frame">
+      <div class="papal-crown" aria-hidden="true">♛</div>
+      <div
+        id="odometer"
+        class="odometer"
+        aria-live="polite"
+        aria-label="Loading"
+      ></div>
+    </div>
+    <p id="truePopeCount" class="footnote" aria-live="polite"></p>
+  </main>
 
-    <div id="odometer" class="odometer"></div>
-
-    <div id="truePopeCount"></div>
-
+  <script src="https://cdn.jsdelivr.net/npm/odometer@0.4.8/odometer.min.js"></script>
+  <script src="../js/ai-demo.js" defer></script>
 </body>
-
-<script src="https://github.hubspot.com/odometer/odometer.js"></script>
-
-
-<script>
-run();
-function run(){
-
-    setTimeout(function() {
-    odometer.innerHTML = 0;
-}, 1000);
-
-
-setTimeout(function() {
-                var truePopeDiv = document.getElementById("truePopeCount");
-                truePopeDiv.innerHTML = "So far.....";
-            }, 2700);
-
-}
-
-
-
-</script>
-
 </html>
