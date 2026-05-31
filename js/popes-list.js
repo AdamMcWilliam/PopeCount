@@ -1,7 +1,8 @@
 import { fetchPopesFromWikipedia, WIKI_LIST_URL } from "./popes-parser.js";
 
-const CACHE_KEY = "popecount-popes-v3";
-const CACHE_MAX_AGE_MS = 7 * 24 * 60 * 60 * 1000;
+const CACHE_KEY = "popecount-popes-v5";
+/** Same-tab reloads reuse this; cleared when the browser tab closes. */
+const cacheStore = sessionStorage;
 
 const $ = (sel) => document.querySelector(sel);
 
@@ -12,13 +13,10 @@ let numberOrder = "asc";
 
 function loadCache() {
   try {
-    const raw = localStorage.getItem(CACHE_KEY);
+    const raw = cacheStore.getItem(CACHE_KEY);
     if (!raw) return null;
     const data = JSON.parse(raw);
     if (!data?.popes?.length || !data.fetchedAt) return null;
-    if (Date.now() - new Date(data.fetchedAt).getTime() > CACHE_MAX_AGE_MS) {
-      return null;
-    }
     return data;
   } catch {
     return null;
@@ -27,9 +25,9 @@ function loadCache() {
 
 function saveCache(data) {
   try {
-    localStorage.setItem(CACHE_KEY, JSON.stringify(data));
+    cacheStore.setItem(CACHE_KEY, JSON.stringify(data));
   } catch {
-    /* storage full */
+    /* quota or private mode */
   }
 }
 
@@ -213,8 +211,7 @@ function renderCard(pope) {
     img.src = pope.image;
     img.alt = `Portrait or emblem of ${pope.displayName}`;
     img.loading = "lazy";
-    img.width = 220;
-    img.height = 280;
+    img.decoding = "async";
     img.addEventListener("error", () => {
       img.remove();
       imgWrap.appendChild(placeholderEl(pope));
@@ -252,8 +249,7 @@ function renderCard(pope) {
 
   const source = document.createElement("p");
   source.className = "pope-card__source";
-  const imgCredit = pope.imageFrom === "wikipedia-main" ? " · main image" : "";
-  source.innerHTML = `Source: <a href="${escapeAttr(pope.wiki || WIKI_LIST_URL)}" rel="noopener noreferrer">Wikipedia</a>${imgCredit}`;
+  source.innerHTML = `Source: <a href="${escapeAttr(pope.wiki || WIKI_LIST_URL)}" target="_blank" rel="noopener noreferrer">Wikipedia</a>`;
 
   body.append(num, title, reign, bio, source);
 
@@ -334,7 +330,9 @@ function goToRandomPope() {
   const url = new URL(window.location.href);
   url.searchParams.set("n", String(pope.number));
   url.searchParams.set("q", pope.displayName || String(pope.number));
-  window.location.assign(url.pathname + url.search + url.hash);
+  history.replaceState(null, "", url.pathname + url.search + url.hash);
+  applyQueryFromUrl();
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function applyQueryFromUrl() {
@@ -367,9 +365,16 @@ function updateSourceFooter(data) {
   const el = $("#wiki-source");
   if (!el) return;
   const when = new Date(data.fetchedAt).toLocaleString();
+  const portraits = Array.isArray(data.popes)
+    ? data.popes.filter((p) => Boolean(p.image)).length
+    : null;
   el.innerHTML = `
-    <p><strong>Source:</strong> <a href="${WIKI_LIST_URL}" rel="noopener noreferrer">Wikipedia — List of popes</a> (CC BY-SA 4.0). Portraits and text are from individual pope articles where linked.</p>
-    <p class="source-meta">Last loaded: ${when}. <button type="button" class="link-btn" id="refresh-wiki">Refresh from Wikipedia</button></p>
+    <p><strong>Source:</strong> <a href="${WIKI_LIST_URL}" target="_blank" rel="noopener noreferrer">Wikipedia — List of popes</a> (CC BY-SA 4.0). Portraits are direct <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener noreferrer">Wikimedia Commons</a> thumbnail URLs from the list table.</p>
+    <p class="source-meta">
+      Last loaded: ${when}.
+      ${portraits !== null ? `${portraits} portrait URLs.` : ""}
+      <button type="button" class="link-btn" id="refresh-wiki">Refresh from Wikipedia</button>
+    </p>
   `;
   $("#refresh-wiki")?.addEventListener("click", () => loadPopes(true));
 }
@@ -387,8 +392,8 @@ async function loadPopes(forceRefresh = false) {
         filtered = [...allPopes];
         updateSourceFooter(cached);
         applyQueryFromUrl();
-        setLoading(false);
         setRandomButtonEnabled(true);
+        setLoading(false);
         return;
       }
     }
@@ -432,7 +437,7 @@ function init() {
 
   $("#random-pope-btn")?.addEventListener("click", goToRandomPope);
 
-  loadPopes(false);
+  loadPopes();
 }
 
 init();

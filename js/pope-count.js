@@ -48,7 +48,7 @@ function showFootnote(count) {
 
   const withStephen = count + 1;
   el.innerHTML =
-    `Or ${withStephen} if you count <a href="${STEPHEN_II_URL}">Pope Stephen II</a>`;
+    `Or ${withStephen} if you count <a href="${STEPHEN_II_URL}" target="_blank" rel="noopener noreferrer">Pope Stephen II</a>`;
 }
 
 function showError(message) {

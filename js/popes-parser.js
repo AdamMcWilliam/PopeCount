@@ -2,11 +2,13 @@
  * Parses pope rows from Wikipedia "List of popes" parse HTML.
  * @see https://en.wikipedia.org/wiki/List_of_popes
  */
-import { enrichPopesWithWikiImages } from "./wiki-images.js";
+import { imageFromCellHtml, fillMissingPortraitUrls } from "./wiki-images.js";
 
 export const WIKI_LIST_URL = "https://en.wikipedia.org/wiki/List_of_popes";
 export const WIKI_API =
   "https://en.wikipedia.org/w/api.php?action=parse&format=json&origin=*&page=List_of_popes";
+
+export const PORTRAIT_WIDTH = 330;
 
 export function stripHtml(text) {
   return text
@@ -28,14 +30,6 @@ export function formatDisplayName(raw) {
   const idx = raw.search(/[A-Z]{4,}/);
   if (idx > 2) return raw.slice(0, idx).trim();
   return raw;
-}
-
-function imgFromCell(cellHtml) {
-  const m = cellHtml.match(/<img[^>]+src="([^"]+)"/i);
-  if (!m) return null;
-  return m[1]
-    .replace(/^\/\//, "https://")
-    .replace(/\/(\d+)px-/, "/220px-");
 }
 
 function wikiFromCell(cellHtml) {
@@ -76,6 +70,16 @@ function buildBio(entry) {
   return parts.join(" · ") || "See Wikipedia for details.";
 }
 
+function imageFromRow(cells, col) {
+  const portraitCell = col.portrait >= 0 ? cells[col.portrait] : "";
+  const nameCell = cells[col.name] ?? "";
+
+  return (
+    imageFromCellHtml(portraitCell) ||
+    imageFromCellHtml(nameCell)
+  );
+}
+
 /** @param {string} html - parse API HTML blob */
 export function parsePopesFromHtml(html) {
   const tables = [
@@ -104,7 +108,6 @@ export function parsePopesFromHtml(html) {
       if (!Number.isFinite(num) || num < 1 || num > 400) continue;
 
       const nameCell = cells[col.name];
-      const portraitCell = col.portrait >= 0 ? cells[col.portrait] : "";
       const rawName = stripHtml(nameCell).slice(0, 120);
 
       const entry = {
@@ -113,7 +116,7 @@ export function parsePopesFromHtml(html) {
         rawName,
         pontificate:
           col.pontificate >= 0 ? stripHtml(cells[col.pontificate]).slice(0, 160) : "",
-        image: imgFromCell(portraitCell) || imgFromCell(nameCell),
+        image: imageFromRow(cells, col),
         birthName: col.birthName >= 0 ? stripHtml(cells[col.birthName]).slice(0, 140) : "",
         notes: col.notes >= 0 ? stripHtml(cells[col.notes]).slice(0, 500) : "",
         wiki: wikiFromCell(nameCell),
@@ -142,11 +145,14 @@ export async function fetchPopesFromWikipedia(options = {}) {
   const html = data?.parse?.text?.["*"];
   if (!html) throw new Error("Missing Wikipedia parse data");
 
+  options.onStatus?.("Loading pope list from Wikipedia…");
   const popes = parsePopesFromHtml(html);
   if (popes.length < 50) throw new Error("Could not parse enough popes");
 
-  options.onStatus?.("Loading main images from Wikipedia…");
-  await enrichPopesWithWikiImages(popes, 400);
+  await fillMissingPortraitUrls(popes, { onStatus: options.onStatus });
+
+  const withImages = popes.filter((p) => p.image).length;
+  options.onStatus?.(`${popes.length} popes · ${withImages} portraits from Commons`);
 
   return {
     popes,

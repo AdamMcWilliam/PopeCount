@@ -23,6 +23,7 @@ Deploy the repo root (or `/docs` if you prefer) as a static site. `CNAME` points
 - `index.html` — main counter + podcast player
 - `js/pope-count.js` — Wikipedia fetch and odometer
 - `js/podcast.js` — audio controls and autoplay hint
+- `js/external-links.js` — opens off-site links in a new tab
 - `games/which-pope.html` — **Which Pope Are You?** quiz (also `/which-pope/`)
-- `popes/` — searchable directory (Wikipedia-sourced bios & portraits)
+- `popes/` — searchable directory (Wikipedia text + Commons portrait URLs from list table)
 - `AI/` — demo variant (“So far.....”)
